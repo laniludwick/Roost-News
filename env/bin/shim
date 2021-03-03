@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+export NODE_PATH='/Users/gloryleilaniwilliams/src/roost-news/env/lib/node_modules'
+export NPM_CONFIG_PREFIX='/Users/gloryleilaniwilliams/src/roost-news/env'
+export npm_config_prefix='/Users/gloryleilaniwilliams/src/roost-news/env'
+exec 'env/bin/node' "$@"
