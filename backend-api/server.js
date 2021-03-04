@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/signup', signupRouter);
-// app.use('/login', loginRouter);
+app.use('/login', loginRouter);
 // app.use('/newsAPI', newsAPIRouter);
 // app.use("/bookmark", bookmarkRouter);
 // app.use("/bookmarked-articles", bookmarkedArticlesRouter);

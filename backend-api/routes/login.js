@@ -1,45 +1,35 @@
-// var express = require("express");
-// var router = express.Router();
+// ***** Route to handle existing user authentication for Roost News *****
 
-// const users = require('../models/user.model.js');
+var express = require('express');
+var router = express.Router();
+const users = require('../models/user.model.js');
 
-// router.post("/", function(req, res, next) {
+router.post('/', function(req, res, next) {
+  
+  //Authenticate existing user
+  const email = req.body.email;
+  const userPassword = req.body.password;
 
-//   //Authenticate existing user
-//   const email = req.body.email;
-//   const userPassword = req.body.password;
-//   const active = req.body.active;
+  users.getUserByEmail(email)
+    .then(result => {
+      console.log("result row [0]['email']", result[0]['email']);
+      console.log("result row [0]['userPassword']", result[0]['userPassword']);
+      if (!result) {
+        res.status(400).send({"error": "Incorrect email address or password"});
+      } else {
+        if (result[0]['userPassword'] === userPassword) {
+          console.log("req.session.id", req.session.id);
+          // req.session.id = result.insertId 
+          res.send({"success": result});
+        } else {
+          res.status(400).send({"error": "Incorrect email address or password"});
+        }
+      }      
+    })  
+    .catch(err => {
+      console.log("Error receiving result of user log in from user model", err); 
+      res.status(500);
+    });
+  }); 
 
-//   //verify that the user email exists in the db
-//   //if doesn't exist, respond to frontend with error that email or password is incorrect
-//   //else if email exists, verify that password matches:
-//   //    if password doesn't match, show same error message
-//   //    else: login user and respond to frontend with success message
-
-//   res.send("API is working in the Express backend - woot!");
-// });
-
-// module.exports = router;
-
-
-
-
-
-    
-    
-    
-
-      
-//       // users.getUserByEmail(email).then(result)
-//       // console.log("result of signup email check:", result);
-//       // if (!result) {
-//       //   res.send(JSON.stringify({"error": "Existing user."}));
-        
-//       // } else {
-//       users.create(fname, lname, email, userPassword, active).then(result => {
-//         //create session with user result
-//         res.send(JSON.stringify({"success": result} ));
-//       }); 
-//       // }
-//     }); 
-    
+module.exports = router;

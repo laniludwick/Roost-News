@@ -4,7 +4,7 @@ import './App.css';
 import React from 'react';
 import Homepage from './Homepage';
 import SignUpUser from './Signup';
-// import Login from './Login';
+import Login from './Login';
 // import ArticleHeadline from './ArticleHeadline';
 // import ArticleDetails from './ArticleDetails';
 // import Bookmarks from './Bookmarks';
@@ -43,9 +43,9 @@ function App() {
           {/* <Route path="/bookmarks" component={Bookmarks}>
           </Route>
           <Route path="/article-details/:articleId" component={ArticleDetails}>
-          </Route>
+          </Route>*/}
           <Route path="/login" component={Login}>
-          </Route> */}
+          </Route> 
           <Route path="/signup" component={SignUpUser}>
           </Route>
           <Route path="/" component={Homepage}>
