@@ -1,6 +1,9 @@
+
+// process.env.DB_PASSWORD
+
 module.exports = {
   HOST: "localhost",
   USER: "root",
-  PASSWORD: "",
-  DB: "roost"
+  PASSWORD: "123456",
+  DB: "roostnews"
 };
