@@ -15,14 +15,14 @@ router.post('/', function(req, res, next) {
       console.log("result row [0]['email']", result[0]['email']);
       console.log("result row [0]['userPassword']", result[0]['userPassword']);
       if (!result) {
-        res.status(400).send({"error": "Incorrect email address or password"});
+        res.status(400).json('{"error": "Incorrect email address or password"}');
       } else {
         if (result[0]['userPassword'] === userPassword) {
           console.log("req.session.id", req.session.id);
           // req.session.id = result.insertId 
-          res.send({"success": result});
+          res.json('{"success": result}');
         } else {
-          res.status(400).send({"error": "Incorrect email address or password"});
+          res.status(400).json('{"error": "Incorrect email address or password"}');
         }
       }      
     })  

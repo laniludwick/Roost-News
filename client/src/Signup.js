@@ -1,7 +1,7 @@
 // ***** Signup component for Roost News used on Signup page *****
 
 import React from 'react';
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 // import { FormControl, InputLabel, Input, FormHelperText, Button } from '@material-ui/core';
 import { Form, Button } from "react-bootstrap";
 
@@ -13,12 +13,7 @@ function SignUpUser() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const [apiResponse, setApiResponse] = React.useState("");  
-
-  // fetch("http://localhost:9000/login")
-  //   .then(res => res.text())
-  //   .then(data => setApiResponse(data))
-  //   .catch(err => err);
+  //const [apiResponse, setApiResponse] = React.useState("");  
 
   // //First arg of userReducer is form reducer function: (state, {field: value}) => state.set(field, value)
   // const [signUpInputs, setSignUpInputs] = React.useReducer(
@@ -67,44 +62,32 @@ function SignUpUser() {
 
     // fetch ('/api/signup', {)
       fetch ("http://localhost:9000/signup", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(signUpData),
-
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(signUpData),
+      })
+    .then(res => res.json())
+    .then(data => {
+      if (data[0] === "insertId") {    
+        //setApiResponse(data);
+        localStorage.setItem("is_logged_in", true);
+        console.log(localStorage.getItem("is_logged_in"));
+        alert("You are now logged in!");
+        // history.push("/");
+      }
     })
-    .then(res => res.text())
-    .then(data => setApiResponse(data))
     .catch(err => err);
   }
-  
-  //   fetch ("http://localhost:9000/signup", {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json'
-  //     },
-  //     body: JSON.stringify(signUpData),
-
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     if (data.access_token){
-  //       localStorage.setItem("user", data.access_token);
-  //       localStorage.setItem("email", email);
-  //       alert("You are now logged in!");
-  //       // history.push("/");
-  //   }}); 
-  // };
   
   return (
     <div>
       <br/>
       <br/>
       <h2>Create a Roost News Account</h2>
-      <p>{apiResponse}</p>
+      {/* <p>{apiResponse}</p> */}
       <Form>
       <Form.Group>
         <Form.Label>First name</Form.Label>

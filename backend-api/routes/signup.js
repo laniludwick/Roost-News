@@ -15,15 +15,23 @@ router.post('/', function(req, res, next) {
   
   users.getUserByEmail(email)
     .then(result => {
-      if (result) {
-      res.status(400).send({"error": "Existing user."});
+      if (result.length > 0) {
+      res.status(400).json({"error": "Existing user found with that email address."});
+      console.log("existing user:", result);
       } else {
       users.create(fname, lname, email, userPassword, active)
         .then(result => {
-          console.log("result.insertId", result);
+          console.log("result of new user creation:", result);
           console.log("req.session.id", req.session.id);
+          result_array = [];
+          for (const key in result){
+            if (key ==="insertId"){
+              result_array.push(key);
+            } 
+          }
+          console.log("result_array", result_array)
           // req.session.id = result.insertId 
-          res.send({"success": result});
+          res.json(result_array);
         })
       }})    
     .catch(err => {
@@ -33,3 +41,4 @@ router.post('/', function(req, res, next) {
   }); 
 
 module.exports = router;
+
