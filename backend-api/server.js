@@ -5,12 +5,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
+const bodyParser = require('body-parser');
+require('dotenv').config({ path: require('find-config')('.env') })
 
 var indexRouter = require('./routes/index');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
-// var newsAPIRouter = require('./routes/newsAPI');
+var newsAPIRouter = require('./routes/newsAPI');
 // var bookmarkRouter = require("./routes/bookmark");
 // var bookmarkedArticlesRouter = require("./routes/bookmarkedArticles");
 var app = express();
@@ -26,12 +28,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use('/', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-// app.use('/newsAPI', newsAPIRouter);
+app.use('/newsAPI', newsAPIRouter);
 // app.use("/bookmark", bookmarkRouter);
 // app.use("/bookmarked-articles", bookmarkedArticlesRouter);
 
@@ -51,4 +55,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//set port, listen for requests
+// app.listen(port, () => {
+//   console.log(`Example app listening at port ${port}`);
+// });
+
+
 module.exports = app;
+
