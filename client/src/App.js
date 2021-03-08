@@ -26,11 +26,11 @@ function App() {
           <Toolbar>  */}
             <Link to="/">Roost News</Link>
             {isLoggedIn !== true? 
-            [<Link to="/signup">SignUpUser</Link>,
-            <Link to="/login">Login</Link>]
+            [<Link key={1} to="/signup">SignUpUser</Link>,
+            <Link key={2} to="/login">Login</Link>]
             :
-            [<Link to="/bookmarks">My bookmarks</Link>,
-            <Link to="/logout">Logout</Link>]}
+            [<Link key={1} to="/bookmarks">My bookmarks</Link>,
+            <Link key={2} to="/logout">Logout</Link>]}
           {/* </Toolbar> 
         </AppBar> */}
         <Switch>

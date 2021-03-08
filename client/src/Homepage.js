@@ -1,46 +1,65 @@
 // ***** Homepage component for Roost News used on landing page *****
 
 import React from 'react';
-// import ArticleHeadline from './ArticleHeadline';
+import Headline from './Headline';
 
 function Homepage () {
 
-  // const [headlineList, setHeadlineList] = React.useState([]);
+  const [headlineData, setHeadlineData] = React.useState("");
+  const [headlineList, setHeadlineList] = React.useState([]);
   
-  // React.useEffect(() => {
-  //   fetch ('/api/headlines', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //   })
-  //   .then(response => response.json())
-  //   .then(articles => {
-  //     setHeadlineList(articles);
-  //   })
-  // }, []);
+  React.useEffect(() => {
+    fetch ('http://localhost:9000/newsAPI', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    
+    .then(headlines => {
+      console.log("headlines from fetch:", headlines);
+      setHeadlineData(headlines);
+    })
+  }, []);
+  
+  console.log("headlineData:", headlineData);
+  console.log("headlineData articles:", headlineData.articles);
 
+  React.useEffect(()=> {
+  if (headlineData !== "") {
+    const headlineComponents = [];
+    for (let [key, value] of Object.entries(headlineData.articles)) {
+        console.log([key, value]);
+        console.log("author", value.author)
+        
+        const headlineComponent = <Headline 
+        key={value.url}
+        author={value.author}
+        title={value.title}
+        description={value.description}
+        url={value.url}
+        urlToImage={value.urlToImage}
+        date={value.publishedAt}
+        content={value.content}
+        />
+        headlineComponents.push(headlineComponent);
+        console.log("headlineComponents list in loop:", headlineComponents);
+      }
+      setHeadlineList(headlineComponents);  
+      }
+  },[headlineData]);    
+
+  console.log("headlineList:", headlineList);
   return (
     <div>
       <h2>News stories</h2>
       <h2>Homepage component</h2>
       <h2>Homepage component</h2>
-
-      {/* {headlineList.map(article => 
-        <ArticleHeadline 
-          key={article.source}
-          newsSource={article.name}
-          author={article.author}
-          title={article.title}
-          description={article.description}
-          url={article.url}
-          urlToImage={article.urlToImage}
-          date={article.publishedAt}
-          content={article.content}
-        />
-      )} */}
+        <div>{headlineList.length > 0? headlineList : null }
+        </div>
     </div>
   )
 }
 
-export default Homepage
+export default Homepage;
