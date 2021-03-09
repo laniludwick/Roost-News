@@ -5,14 +5,24 @@ import React from 'react';
 import Homepage from './Homepage';
 import SignUpUser from './Signup';
 import Login from './Login';
+import "react-bootstrap/dist/react-bootstrap.min.js";
 // import ArticleHeadline from './ArticleHeadline';
 // import ArticleDetails from './ArticleDetails';
 // import Bookmarks from './Bookmarks';
 
+import "react-bootstrap/dist/react-bootstrap.min.js";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { AppBar, Toolbar } from '@material-ui/core';
   
   // LoggedInStatus === true ? [Link to logout, Link to Saved articles] : [Link to Login, Link to Signup]
+
+// const useStyles = makeStyles({
+//   root: {
+//     maxWidth: 345,
+//   },
+// });
 
 function App() {
   

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Headline from './Headline';
+import { CardColumns} from 'react-bootstrap';
 
 function Homepage () {
 
@@ -54,9 +55,8 @@ function Homepage () {
   return (
     <div>
       <h2>News stories</h2>
-      <h2>Homepage component</h2>
-      <h2>Homepage component</h2>
-        <div>{headlineList.length > 0? headlineList : null }
+        <div>
+          <CardColumns>{headlineList.length > 0? headlineList : null }</CardColumns>
         </div>
     </div>
   )
