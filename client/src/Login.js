@@ -1,11 +1,11 @@
 // ***** Login component for Roost News used on Login page *****
 
 import React from 'react';
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 // import { FormControl, InputLabel, Input, FormHelperText, Button } from '@material-ui/core';
 import { Form, Button } from "react-bootstrap";
 
-function Login() {
+function Login(props) {
 
   // const history = useHistory();
   const [email, setEmail] = React.useState("");
@@ -27,23 +27,24 @@ function Login() {
     //localStorage.setItem("email", signUpInputs.email);
 
     // fetch ('/api/signup', {)
-      fetch ("http://localhost:9000/login", {
+    fetch ("http://localhost:9000/login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify(loginData),
-
+    body: JSON.stringify(loginData),
     })
     .then(res => res.json())
     .then(data => {
       console.log("data:", data);
       if (data === '{"success": result}') {
-        localStorage.setItem("isLoggedIn", true);
-        console.log(localStorage.getItem("isLoggedIn"));
+        localStorage.setItem("userEmail", email);
+        console.log(localStorage.getItem("userEmail"));
         alert("You are now logged in!");
         setApiResponse(data);
+        props.setLoggedInState(true);
+        // history.push("/");
       } else {
         console.log("Error", data);
       }

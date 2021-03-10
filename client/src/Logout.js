@@ -2,7 +2,7 @@
 
 // import { useHistory } from "react-router-dom";
 
-function Logout() {
+function Logout(props) {
 
   // const history = useHistory();
   fetch ("http://localhost:9000/logout", {
@@ -18,6 +18,7 @@ function Logout() {
       localStorage.setItem("isLoggedIn", false);
       console.log(localStorage.getItem("isLoggedIn"));
       alert("Thank you for visiting us. Please come again!");
+      props.setLoggedInState(false);
       // history.pushState("/login");
     }
   })

@@ -12,8 +12,8 @@ var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var newsAPIRouter = require('./routes/newsAPI');
-// var bookmarkRouter = require("./routes/bookmark");
-// var bookmarkedArticlesRouter = require("./routes/bookmarkedArticles");
+var bookmarkRouter = require("./routes/bookmark");
+var bookmarkedArticlesRouter = require("./routes/bookmarkedArticles");
 var app = express();
 
 // view engine setup
@@ -35,8 +35,8 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/newsAPI', newsAPIRouter);
-// app.use("/bookmark", bookmarkRouter);
-// app.use("/bookmarked-articles", bookmarkedArticlesRouter);
+app.use('/bookmark', bookmarkRouter);
+app.use('/bookmarked-articles', bookmarkedArticlesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

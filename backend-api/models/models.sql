@@ -30,3 +30,4 @@ CREATE TABLE articles (
     ON DELETE CASCADE,
   active BOOLEAN DEFAULT false
 ); 
+

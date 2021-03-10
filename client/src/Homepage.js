@@ -10,12 +10,7 @@ function Homepage () {
   const [headlineList, setHeadlineList] = React.useState([]);
   
   React.useEffect(() => {
-    fetch ('http://localhost:9000/newsAPI', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
+    fetch ('http://localhost:9000/newsAPI')
     .then(response => response.json())
     
     .then(headlines => {

@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 // import { FormControl, InputLabel, Input, FormHelperText, Button } from '@material-ui/core';
 import { Form, Button } from "react-bootstrap";
 
-function SignUpUser() {
+function SignUpUser(props) {
 
   // const history = useHistory();
   const [fname, setFname] = React.useState("");
@@ -73,9 +73,10 @@ function SignUpUser() {
     .then(data => {
       if (data[0] === "insertId") {    
         //setApiResponse(data);
-        localStorage.setItem("is_logged_in", true);
-        console.log(localStorage.getItem("is_logged_in"));
+        localStorage.setItem("userEmail", email);
+        console.log(localStorage.getItem("userEmail"));
         alert("You are now logged in!");
+        props.setLoggedInState(true);
         // history.push("/");
       }
     })

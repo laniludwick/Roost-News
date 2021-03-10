@@ -7,8 +7,8 @@ import SignUpUser from './Signup';
 import Login from './Login';
 import "react-bootstrap/dist/react-bootstrap.min.js";
 // import ArticleHeadline from './ArticleHeadline';
-// import ArticleDetails from './ArticleDetails';
-// import Bookmarks from './Bookmarks';
+import ArticleDetails from './ArticleDetails';
+import BookmarkedArticles from './BookmarkedArticles';
 
 import "react-bootstrap/dist/react-bootstrap.min.js";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -26,11 +26,12 @@ import { AppBar, Toolbar } from '@material-ui/core';
 
 function App() {
   
+  const [loggedInState, setLoggedInState] = React.useState(false); 
   const isLoggedIn = localStorage.getItem('isLoggedIn');
+
 
   return (
     <div className="App">
-      <p>Hello world!</p>
       <Router>
       {/* <AppBar>
           <Toolbar>  */}
@@ -39,20 +40,28 @@ function App() {
             [<Link key={1} to="/signup">SignUpUser</Link>,
             <Link key={2} to="/login">Login</Link>]
             :
-            [<Link key={1} to="/bookmarks">My bookmarks</Link>,
+            [<Link key={1} to="/bookmarked-articles/:userId">My bookmarks</Link>,
             <Link key={2} to="/logout">Logout</Link>]}
           {/* </Toolbar> 
         </AppBar> */}
         <Switch>
-          {/* <Route path="/bookmarks" component={Bookmarks}>
+          <Route path="/bookmarked-articles/:userId">
+            <BookmarkedArticles loggedInState={loggedInState}/>
           </Route>
-          <Route path="/article-details/:articleId" component={ArticleDetails}>
-          </Route>*/}
-          <Route path="/login" component={Login}>
+          <Route path = "/article-details/:articleId">
+            <ArticleDetails loggedInState={loggedInState}/>
           </Route> 
-          <Route path="/signup" component={SignUpUser}>
+          <Route path="/logout">
+            <Login setLoggedInState={setLoggedInState}/>
           </Route>
-          <Route path="/" component={Homepage}>
+          <Route path="/login">
+            <Login setLoggedInState={setLoggedInState}/>
+          </Route>
+          <Route path="/signup">
+            <SignUpUser setLoggedInState={setLoggedInState}/>
+          </Route>
+          <Route path="/">
+            <Homepage loggedInState={loggedInState} />
           </Route> 
         </Switch>
       </Router>
