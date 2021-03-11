@@ -1,5 +1,4 @@
-
-import { useParams } from 'react-router-dom';
+// ***** ArticleDetails component for Roost News  *****
 
 function ArticleDetails (props) {
   // const {articleId} = useParams();

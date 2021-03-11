@@ -7,7 +7,7 @@ import { Form, Button } from "react-bootstrap";
 
 function SignUpUser(props) {
 
-  // const history = useHistory();
+  const history = useHistory();
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -77,7 +77,7 @@ function SignUpUser(props) {
         console.log(localStorage.getItem("userEmail"));
         alert("You are now logged in!");
         props.setLoggedInState(true);
-        // history.push("/");
+        history.push("/");
       }
     })
     .catch(err => err);

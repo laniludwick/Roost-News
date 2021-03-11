@@ -1,29 +1,11 @@
 // ***** Homepage component for Roost News used on landing page *****
+
 import ArticleDetails from './ArticleDetails';
-import { Card, Button } from 'react-bootstrap';
+import { Container, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
-// //import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Card from '@material-ui/core/Card';
-// import CardActionArea from '@material-ui/core/CardActionArea';
-// import CardActions from '@material-ui/core/CardActions';
-// import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
-// import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';
-
-
-// const useStyles = makeStyles({
-//   root: {
-//     maxWidth: 345,
-//   },
-// });
-  
 
 function Headline (props) {
   
-  // const classes = useStyles();
   const linkToDetails = {
     pathname: "/article-details",
     articleId: props.url
@@ -31,9 +13,7 @@ function Headline (props) {
 
   const bookmarkArticle = () => {
     
-    // console.log(localStorage.getItem("userEmail"));
     const bookmarkData = {
-      // "email":localStorage.getItem("userEmail"),
       "author":props.author,
       "title":props.title,
       "description":props.description,
@@ -45,7 +25,7 @@ function Headline (props) {
 
     console.log("bookmark data", bookmarkData);
 
-    // fetch ('/bookmark'
+    // fetch ('/api/bookmark'
     fetch ("http://localhost:9000/bookmark", {
       method: 'POST',
       headers: {
@@ -60,7 +40,7 @@ function Headline (props) {
       if (data === '{"success": result}') {
         
         alert("Article has been saved to your account as a bookmark.");
-        // history.push("/");
+        //Change color of bookmark icon to solid dark
       } else {
         console.log("Error", data);
         //should handle case where bookmark is already saved
@@ -71,6 +51,7 @@ function Headline (props) {
 
   return (
   <div>
+    <Container>
       <Card>
         <Card.Img variant="top" src={props.urlToImage} />
         <Card.Body>
@@ -86,6 +67,7 @@ function Headline (props) {
           <Button>Email article</Button>
         </Card.Body>
       </Card>
+    </Container>
   </div>
   )
 } 

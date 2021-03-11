@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { useHistory } from "react-router-dom";
-// import { FormControl, InputLabel, Input, FormHelperText, Button } from '@material-ui/core';
 import { Form, Button } from "react-bootstrap";
 
 function Login(props) {
 
-  // const history = useHistory();
+  console.log("use history:", useHistory);
+  const history = useHistory();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -18,15 +18,14 @@ function Login(props) {
     console.log("in handle login function");
 
     const loginData = {
-      "email":email,
-      "password":password,
-      "active":false
+      "email": email,
+      "password": password,
+      "active": false
     }
 
     console.log("login data", loginData)
-    //localStorage.setItem("email", signUpInputs.email);
 
-    // fetch ('/api/signup', {)
+    // fetch ('/api/login', {)
     fetch ("http://localhost:9000/login", {
       method: 'POST',
       headers: {
@@ -44,7 +43,7 @@ function Login(props) {
         alert("You are now logged in!");
         setApiResponse(data);
         props.setLoggedInState(true);
-        // history.push("/");
+        history.push("/");
       } else {
         console.log("Error", data);
       }

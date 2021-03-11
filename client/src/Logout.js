@@ -1,10 +1,10 @@
 // ***** Logout function for Roost News used on Navigation bar *****
 
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Logout(props) {
 
-  // const history = useHistory();
+  const history = useHistory();
   fetch ("http://localhost:9000/logout", {
     method: 'POST',
     headers: {
@@ -19,8 +19,10 @@ function Logout(props) {
       console.log(localStorage.getItem("isLoggedIn"));
       alert("Thank you for visiting us. Please come again!");
       props.setLoggedInState(false);
-      // history.pushState("/login");
+      history.pushState("/login");
     }
   })
   .catch(err => err);
 }
+
+export default Logout

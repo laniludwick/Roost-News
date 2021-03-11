@@ -5,50 +5,36 @@ import React from 'react';
 import Homepage from './Homepage';
 import SignUpUser from './Signup';
 import Login from './Login';
-import "react-bootstrap/dist/react-bootstrap.min.js";
-// import ArticleHeadline from './ArticleHeadline';
 import ArticleDetails from './ArticleDetails';
 import BookmarkedArticles from './BookmarkedArticles';
-
-import "react-bootstrap/dist/react-bootstrap.min.js";
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { AppBar, Toolbar } from '@material-ui/core';
-  
-  // LoggedInStatus === true ? [Link to logout, Link to Saved articles] : [Link to Login, Link to Signup]
-
-// const useStyles = makeStyles({
-//   root: {
-//     maxWidth: 345,
-//   },
-// });
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Navbar, Nav } from 'react-bootstrap';
 
 function App() {
   
   const [loggedInState, setLoggedInState] = React.useState(false); 
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
-
 
   return (
     <div className="App">
       <Router>
-      {/* <AppBar>
-          <Toolbar>  */}
-            <Link to="/">Roost News</Link>
-            {isLoggedIn !== true? 
-            [<Link key={1} to="/signup">SignUpUser</Link>,
-            <Link key={2} to="/login">Login</Link>]
+        <Navbar bg="dark" variant="dark">
+          <Nav className="mr-auto">
+            <Nav.Link href="/">Roost News</Nav.Link>
+          </Nav>
+          <Nav>
+            {loggedInState !== true? 
+            [<Nav.Link key={1} href="/signup">SignUpUser</Nav.Link>,
+            <Nav.Link key={2} href="/login">Login</Nav.Link>]
             :
-            [<Link key={1} to="/bookmarked-articles/:userId">My bookmarks</Link>,
-            <Link key={2} to="/logout">Logout</Link>]}
-          {/* </Toolbar> 
-        </AppBar> */}
+            [<Nav.Link key={1} href="/bookmarked-articles/:userId">My bookmarks</Nav.Link>,
+            <Nav.Link key={2} href="/logout">Logout</Nav.Link>]}
+          </Nav>
+        </Navbar>
         <Switch>
-          <Route path="/bookmarked-articles/:userId">
+          <Route path="/bookmarked-articles">
             <BookmarkedArticles loggedInState={loggedInState}/>
           </Route>
-          <Route path = "/article-details/:articleId">
+          <Route path = "/article-details">
             <ArticleDetails loggedInState={loggedInState}/>
           </Route> 
           <Route path="/logout">
@@ -68,7 +54,6 @@ function App() {
       <div> 
         <p>© 2021 Copyright: Roost News<br/>All rights reserved <br/>By: Lani Ludwick</p>
       </div>
-      {/* <p>{apiResponse}</p> */}
     </div>
   )
 }

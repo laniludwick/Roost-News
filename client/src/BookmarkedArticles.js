@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom';
+// ***** BookmarkedArticles component for Roost News  *****
+
 import React from 'react';
 import Headline from './Headline';
 import { CardColumns} from 'react-bootstrap';
