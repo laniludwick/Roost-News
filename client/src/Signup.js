@@ -3,7 +3,21 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 // import { FormControl, InputLabel, Input, FormHelperText, Button } from '@material-ui/core';
-import { Form, Button } from "react-bootstrap";
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import { Form } from "react-bootstrap";
+
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+  },
+});
 
 function SignUpUser(props) {
 
@@ -83,6 +97,8 @@ function SignUpUser(props) {
     .catch(err => err);
   }
   
+  const classes = useStyles();
+
   return (
     <div>
       <br/>
@@ -106,7 +122,7 @@ function SignUpUser(props) {
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" id="password" name="password" value={password} onChange={evt => setPassword(evt.target.value)}/><br/>
       </Form.Group>
-      <Button color="primary" variant="contained" onClick={handleSignup} type="submit">Complete Sign Up</Button> 
+      <Button color="primary" className={classes.root} variant="contained" onClick={handleSignup} type="submit">Complete Sign Up</Button> 
       </Form>
 
       {/* <FormControl name="fname" value={fname} onChange={evt => setFname(evt.target.value)}>

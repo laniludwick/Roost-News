@@ -51,8 +51,8 @@ function App() {
           </Route> 
         </Switch>
       </Router>
-      <div> 
-        <p>© 2021 Copyright: Roost News<br/>All rights reserved <br/>By: Lani Ludwick</p>
+      <div className="footer"> 
+        <p className="footer-padding">© 2021 Copyright: Roost News<br/>All rights reserved</p>
       </div>
     </div>
   )
