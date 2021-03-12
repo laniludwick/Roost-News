@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Headline from './Headline';
-import { CardColumns} from 'react-bootstrap';
+import { CardColumns } from 'react-bootstrap';
+import { Grid } from '@material-ui/core';
 
 function Homepage () {
 
@@ -49,10 +50,11 @@ function Homepage () {
   console.log("headlineList:", headlineList);
   return (
     <div>
-      <h2>News stories</h2>
-        <div>
-          <CardColumns>{headlineList.length > 0? headlineList : null }</CardColumns>
-        </div>
+      <div><br/>
+        <Grid container justify="center">
+          {headlineList.length > 0? headlineList : null }
+        </Grid>
+      </div>
     </div>
   )
 }

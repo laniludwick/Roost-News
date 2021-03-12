@@ -1,35 +1,32 @@
 // ***** Homepage component for Roost News used on landing page *****
 
-import ArticleDetails from './ArticleDetails';
-// import { Container, Card, Button } from 'react-bootstrap';
-import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import { Card, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core'; 
+import { Grid, Button, makeStyles, IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 550,
+    maxWidth: 450,
+    margin: 10,
   },
   media: {
-    height: 140,
+    height: 250,
   },
 });
 
 function Headline (props) {
   
-  const linkToDetails = {
-    pathname: "/article-details",
-    articleId: props.url
-  } 
+
+
+  const emailArticle = () => {
+    console.log("Inside emailArticle function")
+  }
 
   const bookmarkArticle = () => {
     
@@ -71,7 +68,8 @@ function Headline (props) {
   const classes = useStyles();
   return (
   <div>
-    <Container>
+    <Grid item >
+      
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -90,34 +88,24 @@ function Headline (props) {
       </CardActionArea>
       <CardActions>
         
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" href={props.url}>
           View Article
         </Button>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Save
-        </Button>
+        <IconButton onClick={emailArticle}>
+          <MailOutlineIcon size="small" color="primary">
+            Share
+          </MailOutlineIcon>
+        </IconButton>
+        <IconButton onClick={bookmarkArticle}>
+          <BookmarkBorderIcon size="small" color="primary">
+            Save
+          </BookmarkBorderIcon>
+        </IconButton>
       </CardActions>
     </Card>
     <br/>
-      {/* <Card>
-        <Card.Img variant="top" src={props.urlToImage} />
-        <Card.Body>
-          <Card.Title>{props.title}</Card.Title>
-          <Card.Text>
-            {props.description}
-          </Card.Text>
-          
-          <Link key={1} to={linkToDetails} className="btn btn-primary" >View details</Link> 
-          {props.loggedInState===true?
-          <Button onClick={bookmarkArticle}>Bookmark</Button>:null} 
-          
-          <Button>Email article</Button>
-        </Card.Body>
-      </Card> */}
-    </Container>
+
+    </Grid>
   </div>
   )
 } 
