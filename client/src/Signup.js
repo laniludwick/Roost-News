@@ -2,22 +2,9 @@
 
 import React from 'react';
 import { useHistory } from "react-router-dom";
-// import { FormControl, InputLabel, Input, FormHelperText, Button } from '@material-ui/core';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import { Form } from "react-bootstrap";
+import { TextField, Container, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-  root: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'white',
-    height: 48,
-    padding: '0 30px',
-  },
-});
 
 function SignUpUser(props) {
 
@@ -61,8 +48,7 @@ function SignUpUser(props) {
       "fname":fname,
       "lname":lname,
       "email":email,
-      "password":password,
-      "active":false
+      "password":password
     }
 
     // const signUpData = {
@@ -103,48 +89,36 @@ function SignUpUser(props) {
     <div>
       <br/>
       <br/>
-      <h2>Create a Roost News Account</h2>
-      {/* <p>{apiResponse}</p> */}
-      <Form>
-      <Form.Group>
-        <Form.Label>First name</Form.Label>
-        <Form.Control type="text" id="fname" name="fname" value={fname} onChange={evt => setFname(evt.target.value)}/><br/>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Last name</Form.Label>
-        <Form.Control type="text" id="lname" name="lname" value={lname} onChange={evt => setLname(evt.target.value)}/><br/>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Email</Form.Label>
-        <Form.Control type="email" id="email" name="email" value={email} onChange={evt => setEmail(evt.target.value)}/><br/>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" id="password" name="password" value={password} onChange={evt => setPassword(evt.target.value)}/><br/>
-      </Form.Group>
-      <Button color="primary" className={classes.root} variant="contained" onClick={handleSignup} type="submit">Complete Sign Up</Button> 
-      </Form>
-
-      {/* <FormControl name="fname" value={fname} onChange={evt => setFname(evt.target.value)}>
-        <InputLabel htmlFor="my-input">First Name</InputLabel>
-        <Input id="signup-fname" required="true" type="text" />
-      </FormControl>
-      <FormControl name="lname" value={lname} onChange={evt => setLname(evt.target.value)}>
-        <InputLabel htmlFor="my-input">Last Name</InputLabel>
-        <Input id="signup-lname" required="true" type="text"/>
-      </FormControl><br/>
-      <FormControl name="email" value={email} onChange={evt => setEmail(evt.target.value)}>
-        <InputLabel htmlFor="my-input">Email address</InputLabel>
-        <Input id="signup-email" aria-describedby="my-helper-text" required="true" type="email"/>
-        <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-      </FormControl>
-      <FormControl name="password" value={password} onChange={evt => setPassword(evt.target.value)}>
-        <InputLabel htmlFor="my-input">Password</InputLabel>
-        <Input id="signup-password" required="true" type="password"/>
-      </FormControl><br/>*}
-      <Button color="primary" variant="contained" onClick={handleSignUp} type="submit">Complete Sign Up</Button> */}
+      <Container className="signup">
+        <div className="signup-login-header">
+          <h2>Create an Account</h2>
+        </div>
+        <div className="signup-login-form">
+          <TextField name="fname" value={fname} fullWidth label="First Name" onChange={evt => setFname(evt.target.value)} required={true}/>
+          <TextField name="lname" value={lname} fullWidth label="Last Name" onChange={evt => setLname(evt.target.value)} required={true}/>
+          <TextField name="email" value={email} fullWidth label="Email Address" onChange={evt => setEmail(evt.target.value)} required={true} type="email" helperText="We'll never share your email."/>
+          <TextField name="password" value={password} fullWidth label="Password" onChange={evt => setPassword(evt.target.value)} required={true} type="password"/>
+          <br/><br/>
+          <Button color="primary" variant="contained" fullWidth className={classes.root} onClick={handleSignup} type="submit">Complete Sign Up</Button>
+        </div>
+      </Container>
     </div>  
   )
 }
 
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #336600 30%, #59b300 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+  },
+});
+
+
 export default SignUpUser
+
+

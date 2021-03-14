@@ -2,7 +2,9 @@
 
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { TextField, Container, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 
 function Login(props) {
 
@@ -16,8 +18,7 @@ function Login(props) {
 
     const loginData = {
       "email": email,
-      "password": password,
-      "active": false
+      "password": password
     }
 
     console.log("login data", loginData);
@@ -49,25 +50,39 @@ function Login(props) {
     console.log("Err");
     
   }
-  
+  const classes = useStyles();
+
   return (
     <div>
-      <br/>
-      <br/>
-      <h2>Log In to Your Roost News Account</h2>
-      <Form>
-      <Form.Group>
-        <Form.Label>Email</Form.Label>
-        <Form.Control type="email" id="email" name="email" value={email} onChange={evt => setEmail(evt.target.value)}/><br/>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" id="password" name="password" value={password} onChange={evt => setPassword(evt.target.value)}/><br/>
-      </Form.Group>
-      <Button color="primary" variant="contained" onClick={handleLogin} type="submit">Log In</Button> 
-      </Form>
-    </div>  
+    <br/>
+    <br/>
+    <Container className="login">
+      <div className="signup-login-header">
+        <h2>Welcome Back!</h2>
+      </div>
+      <div className="signup-login-form">
+        <TextField name="email" value={email} fullWidth label="Email Address" onChange={evt => setEmail(evt.target.value)} required={true} type="email"/>
+        <TextField name="password" value={password} fullWidth label="Password" onChange={evt => setPassword(evt.target.value)} required={true} type="password"/>
+        <br/><br/>
+        <Button color="primary" variant="contained" fullWidth className={classes.root} onClick={handleLogin} type="submit">Log In</Button>
+      </div>
+    </Container>
+    </div>   
   )
 }
 
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #336600 30%, #59b300 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+  },
+});
+
+
 export default Login;
+

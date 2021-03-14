@@ -1,20 +1,20 @@
-var createError = require('http-errors');
-var express = require('express');
-var session = require('express-session');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require("cors");
+const createError = require('http-errors');
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require("cors");
 const bodyParser = require('body-parser');
 
-var indexRouter = require('./routes/index');
-var signupRouter = require('./routes/signup');
-var loginRouter = require('./routes/login');
-var logoutRouter = require('./routes/logout');
-var newsAPIRouter = require('./routes/newsAPI');
-var bookmarkRouter = require("./routes/bookmark");
-var bookmarkedArticlesRouter = require("./routes/bookmarkedArticles");
-var app = express();
+const indexRouter = require('./routes/index');
+const signupRouter = require('./routes/signup');
+const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
+const newsAPIRouter = require('./routes/newsAPI');
+const bookmarkRouter = require("./routes/bookmark");
+const bookmarkedArticlesRouter = require("./routes/bookmarkedArticles");
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

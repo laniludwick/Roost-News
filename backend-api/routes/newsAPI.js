@@ -2,9 +2,9 @@
 
 //body-parser parses the request and create the req.body object 
 // require('dotenv').config({ path: require('find-config')('.env') })
-var express = require('express');
-var router = express.Router();
-var path = require('path');
+const express = require('express');
+const router = express.Router();
+const path = require('path');
 require('dotenv').config({path: __dirname + '/../../.env'})
 const apiKey = process.env.REACT_APP_NEWS_API_KEY
 const NewsAPI = require('newsapi');
@@ -28,7 +28,7 @@ router.get("/", (req, res) => {
     page: 1
     })
     .then(response => {
-      console.log("Backend console log response:", response);
+      // console.log("Backend console log response:", response);
       /*
         {
           status: "ok",

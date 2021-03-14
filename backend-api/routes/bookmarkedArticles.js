@@ -1,7 +1,7 @@
 // ***** Route to retrieving a user's bookmarked articles *****
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const bookmarks = require('../models/bookmark.model.js');
 
 router.get('/', function(req, res, next) {

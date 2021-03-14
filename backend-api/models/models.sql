@@ -3,31 +3,29 @@
 -- USE roostnews;
 -- Note: Manually shelled into MySQL and added DB and tables using commands below
 
-CREATE TABLE users (
+CREATE TABLE user (
   id int(11) NOT NULL
   PRIMARY KEY AUTO_INCREMENT,
   fname varchar(255) NOT NULL,
   lname varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
-  userPassword varchar(255) NOT NULL,
-  active BOOLEAN DEFAULT false
+  userPassword varchar(255) NOT NULL
 ); 
 
-CREATE TABLE articles (
+CREATE TABLE bookmark (
   id int(11) NOT NULL 
   PRIMARY KEY AUTO_INCREMENT,
-  author varchar(255) NOT NULL,
-  headline varchar(255) NOT NULL,
-  urlToImg varchar(255) NOT NULL,
-  articleDescription varchar(5000) NOT NULL,
-  content varchar(10000) NOT NULL,
-  articleURL varchar(255) NOT NULL,
-  publishedAt date NOT NULL,
+  author varchar(255),
+  title varchar(255),
+  urlToImg varchar(255),
+  articleDescription varchar(5000),
+  content varchar(10000),
+  articleURL varchar(255),
+  publishedAt date,
   userID int(11) NOT NULL,
   INDEX usrID (userID),
   FOREIGN KEY (userID)
-    REFERENCES users (id)
-    ON DELETE CASCADE,
-  active BOOLEAN DEFAULT false
+    REFERENCES user (id)
+    ON DELETE CASCADE
 ); 
 

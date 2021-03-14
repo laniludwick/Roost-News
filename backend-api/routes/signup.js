@@ -1,17 +1,17 @@
 // ***** Route to handle new user signup for Roost News *****
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const users = require('../models/user.model.js');
+const session = require('express-session');
 
 router.post('/', function(req, res, next) {
-
+  console.log("enter sign-up route")
   //Create a new user
   const fname = req.body.fname;
   const lname = req.body.lname;
   const email = req.body.email;
   const userPassword = req.body.password;
-  const active = req.body.active;
   
   users.getUserByEmail(email)
     .then(result => {
@@ -29,8 +29,12 @@ router.post('/', function(req, res, next) {
               result_array.push(key);
             } 
           }
-          console.log("result_array", result_array)
-          // req.session.id = result.insertId 
+          console.log("result_array", result_array);
+          console.log("result id", result.insertId);
+          
+          session.user = {};
+          session.user.userId = result.insertId;
+          console.log("session user.userid", session.user.userId);
           res.json(result_array);
         })
       }})    

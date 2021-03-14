@@ -1,7 +1,8 @@
 // ***** Route to handle existing user authentication for Roost News *****
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const session = require('express-session');
+const router = express.Router();
 const users = require('../models/user.model.js');
 
 router.post('/', function(req, res, next) {
@@ -18,7 +19,9 @@ router.post('/', function(req, res, next) {
         res.status(400).json('{"error": "Incorrect email address or password"}');
       } else {
         if (result[0]['userPassword'] === userPassword) {
-          console.log("req.session.id", req.session.id);
+          req.session.user = {};
+          req.session.user.userId = result.insertId;
+          console.log("req session user.userid", req.session.user.userId);
           // req.session.id = result.insertId 
           res.json('{"success": result}');
         } else {
