@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Headline from './Headline';
-import { CardColumns} from 'react-bootstrap';
+import { Grid } from '@material-ui/core';
 
 function BookmarkedArticles (props) {
   // const {articleId} = useParams();
@@ -11,7 +11,7 @@ function BookmarkedArticles (props) {
   const [bookmarkList, setBookmarkList] = React.useState([]);
 
   React.useEffect(() => {
-    fetch('/bookmarked-articles')
+    fetch('http://localhost:9000/bookmarked-articles')
     .then(response => response.json())
     .then(data => {
 
@@ -23,33 +23,36 @@ function BookmarkedArticles (props) {
   React.useEffect(()=> {
     if (bookmarkData !== "") {
     const bookmarkComponents = [];
+    console.log("Bookmark data object:", bookmarkData);
     for (let [key, value] of Object.entries(bookmarkData)) {
-        console.log([key, value]);
-        
-        const bookmarkComponent = <Headline 
-        key={value.url}
-        author={value.author}
-        title={value.title}
-        description={value.description}
-        url={value.url}
-        urlToImage={value.urlToImage}
-        date={value.publishedAt}
-        content={value.content}
-        />
-        bookmarkComponents.push(bookmarkComponent);
-        console.log("bookmarkComponents list in loop:", bookmarkComponents);
-      }
-      setBookmarkList(bookmarkComponents);  
-      }
+      console.log("Key value of bookmark data in loop:", [key, value]);
+      console.log("value.url:", value.url);
+      const bookmarkComponent = <Headline 
+      key={value.id}
+      id={value.id}
+      author={value.author}
+      title={value.title}
+      description={value.articleDescription}
+      url={value.articleURL}
+      urlToImage={value.urlToImg}
+      // date={value.publishedAt}
+      // content={value.content}
+      />
+      bookmarkComponents.push(bookmarkComponent);
+      console.log("bookmarkComponents list in loop:", bookmarkComponents);
+    }
+    setBookmarkList(bookmarkComponents);  
+    }
   },[bookmarkData]);    
   
   return (
     <div>
-    <h2>My Bookmarked Articles</h2>
-      <div>
-        <CardColumns>{bookmarkList.length > 0? bookmarkList : null }</CardColumns>
+      <div><br/>
+        <Grid container justify="center">
+          {bookmarkList.length > 0? bookmarkList : null }
+        </Grid>
       </div>
-  </div>
+    </div>
   )
 }
 

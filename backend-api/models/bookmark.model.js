@@ -2,12 +2,12 @@
 //Access connection to db
 const sql = require("./db.js");
 
-exports.create = (userId, author, title, description, url, urlToImage, date, content) => {
+exports.create = (userId, author, title, articleDescription, url, urlToImage) => {
   console.log("In bookmark model create");
   return new Promise((acc, rej) => {
     
-    const sqlCommand = "INSERT INTO articles (userId, author, headline, articleDescription, articleURL, urlToImg, publishedAt, content) VALUES (null, '"+author+"', '"+title+"', '"+description+"', '"+url+"', '"+urlToImage+"', '"+date+"', '"+content+"')";
-    
+    const sqlCommand = "INSERT INTO bookmark (id, userId, author, title, articleDescription, articleURL, urlToImg) VALUES (null, '"+userId+"', '"+author+"', '"+title+"', '"+articleDescription+"', '"+url+"', '"+urlToImage+"')";
+        
       sql.query(sqlCommand, function(err, result) {
       if (err) {
         console.log("error: ", err);
@@ -20,11 +20,11 @@ exports.create = (userId, author, title, description, url, urlToImage, date, con
     }); 
 })}
 
-exports.getBookmarksByEmail = (email) => {
-  console.log("In bookmark model get bookmarks by email");
+exports.getBookmarksByUserId = (userId) => {
+  console.log("In bookmark model get bookmarks by userId");
   return new Promise ((acc, rej) => {
     
-    const sqlCommand = "SELECT email, userPassword FROM articles WHERE email='"+email+"'";
+    const sqlCommand = "SELECT id, author, title, articleDescription, articleURL, urlToImg, userID FROM bookmark WHERE userID='"+userId+"'";
     
     sql.query(sqlCommand, function(err, result) {
       if (err) {
@@ -32,7 +32,7 @@ exports.getBookmarksByEmail = (email) => {
         rej(err);
       }
       else {
-        console.log("found customer:", result);
+        console.log("found bookmarks for user:", result);
         acc(result);
       }
     }); 

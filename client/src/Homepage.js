@@ -37,8 +37,8 @@ function Homepage () {
         description={value.description}
         url={value.url}
         urlToImage={value.urlToImage}
-        date={value.publishedAt}
-        content={value.content}
+        // date={value.publishedAt}
+        // content={value.content}
         />
         headlineComponents.push(headlineComponent);
         console.log("headlineComponents list in loop:", headlineComponents);

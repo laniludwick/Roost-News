@@ -19,7 +19,7 @@ router.post('/', function(req, res, next) {
       res.status(400).json({"error": "Existing user found with that email address."});
       console.log("existing user:", result);
       } else {
-      users.create(fname, lname, email, userPassword, active)
+      users.create(fname, lname, email, userPassword)
         .then(result => {
           console.log("result of new user creation:", result);
           console.log("req.session.id", req.session.id);

@@ -9,7 +9,7 @@ import RoostNewsLogo from './RoostNewsLogo.png';
 import ArticleDetails from './ArticleDetails';
 import BookmarkedArticles from './BookmarkedArticles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Box, AppBar, Toolbar, Link, Typography, Button, makeStyles, IconButton } from '@material-ui/core';
+import { Box, Container, AppBar, Toolbar, Link, Typography, Button, makeStyles, IconButton } from '@material-ui/core';
 
 function App() {
   
@@ -20,19 +20,21 @@ function App() {
     <div className="classes.root">
       <Router>
         <AppBar position="static" color="transparent">
-          <Toolbar>
-                <Typography variant="h6" className={classes.title}>
-                  <Link href="/" color="inherit">
-                    <img src={RoostNewsLogo} width="270px" height="40px" className="center"/>
-                  </Link>
-                </Typography>
-                {loggedInState !== true? 
-                [<Button color="inherit" href="/signup">Sign Up</Button>,
-                <Button color="inherit" href="/login">Login</Button>]
-                :
-                [<Button color="inherit" href="/bookmarked-articles">My bookmarks</Button>,
-                <Button color="inherit" href="/logout">Logout</Button>]}
-          </Toolbar>
+          {/* <Container> */}
+            <Toolbar>
+                  <Typography variant="h6" className={classes.title}>
+                    <Link href="/" color="inherit">
+                      <img src={RoostNewsLogo} width="270px" height="40px" className="center"/>
+                    </Link>
+                  </Typography>
+                  {loggedInState !== true? 
+                  [<Button color="inherit" href="/signup">Sign Up</Button>,
+                  <Button color="inherit" href="/login">Login</Button>]
+                  :
+                  [<Button color="inherit" href="/bookmarked-articles">My bookmarks</Button>,
+                  <Button color="inherit" href="/logout">Logout</Button>]}
+            </Toolbar>
+          {/* </Container> */}
         </AppBar>
         <Switch>
           <Route path="/bookmarked-articles">

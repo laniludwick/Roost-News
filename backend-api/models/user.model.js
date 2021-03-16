@@ -6,7 +6,7 @@ exports.create = (fname, lname, email, userPassword, active) => {
   console.log("In create user in model");
   return new Promise((acc, rej) => {
   
-    const sqlCommand = "INSERT INTO users (id, fname, lname, email, userPassword, active) VALUES (null, '"+fname+"', '"+lname+"', '"+email+"', '"+userPassword+"', null)";
+    const sqlCommand = "INSERT INTO user (id, fname, lname, email, userPassword) VALUES (null, '"+fname+"', '"+lname+"', '"+email+"', '"+userPassword+"')";
     
       sql.query(sqlCommand, function(err, result) {
       if (err) {
@@ -24,7 +24,7 @@ exports.getUserByEmail = (email) => {
   console.log("In get user by email in model");
   return new Promise ((acc, rej) => {
     
-    const sqlCommand = "SELECT email, userPassword FROM users WHERE email='"+email+"'";
+    const sqlCommand = "SELECT email, userPassword, id FROM user WHERE email='"+email+"'";
     
     sql.query(sqlCommand, function(err, result) {
       if (err) {

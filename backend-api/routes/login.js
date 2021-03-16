@@ -13,15 +13,17 @@ router.post('/', function(req, res, next) {
 
   users.getUserByEmail(email)
     .then(result => {
+      console.log("Result of get user by email in login func:", result)
       console.log("result row [0]['email']", result[0]['email']);
       console.log("result row [0]['userPassword']", result[0]['userPassword']);
       if (!result) {
         res.status(400).json('{"error": "Incorrect email address or password"}');
       } else {
         if (result[0]['userPassword'] === userPassword) {
-          req.session.user = {};
-          req.session.user.userId = result.insertId;
-          console.log("req session user.userid", req.session.user.userId);
+          console.log("userid", result[0]['id']);
+          session.user = {};
+          session.user.userId = result[0]['id'];
+          console.log("session user.userid", session.user.userId);
           // req.session.id = result.insertId 
           res.json('{"success": result}');
         } else {

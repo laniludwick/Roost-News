@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const bookmark = require('../models/bookmark.model.js');
 const session = require('express-session');
+const { LoopDetected } = require('http-errors');
 
 router.post('/', function(req, res, next) {
   console.log("Entering bookmark route");
@@ -15,16 +16,24 @@ router.post('/', function(req, res, next) {
   
   
   //Article info
-  const author = req.body.author;
-  const title = req.body.title;
-  const description = req.body.description;
-  const url = req.body.url;
-  const urlToImage = req.body.urlToImage;
-  const date = req.body.date;
-  const content = req.body.content;
-  const userId = 74;
-
-  bookmark.create(userId, author, title, description, url, urlToImage, date, content)
+  console.log("article info below");
+  let author = req.body.author;
+  let title = req.body.title;
+  let articleDescription = req.body.description;
+  let url = req.body.url;
+  let urlToImage = req.body.urlToImage;
+  // let date = req.body.date;
+  let content = req.body.content;
+  const userId = 2;
+  console.log("author, title, descr, url", author, title, articleDescription, url);
+  console.log("title, desc:", title, articleDescription);
+  
+  // if (typeof(date) === 'undefined') {
+  //   console.log("date:", date);
+  //   date = null;
+  //   console.log("date:", date);
+  // }
+  bookmark.create(userId, author, title, articleDescription, url, urlToImage)
   .then(result => {
     console.log("result of saving article to user's account:", result);
     result_array = [];

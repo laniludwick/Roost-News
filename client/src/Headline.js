@@ -10,22 +10,18 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core'; 
 import { Grid, Button, makeStyles, IconButton } from '@material-ui/core';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 450,
-    margin: 10,
-  },
-  media: {
-    height: 250,
-  },
-});
 
 function Headline (props) {
   
-
+  const [bookmarked, setBookmarked] = React.useState(false);
 
   const emailArticle = () => {
     console.log("Inside emailArticle function")
+  }
+
+  const removeBookmark = () => {
+    console.log("Inside removeBookmark function")
+    setBookmarked(false);
   }
 
   const bookmarkArticle = () => {
@@ -57,7 +53,9 @@ function Headline (props) {
       if (data === '{"success": result}') {
         
         alert("Article has been saved to your account as a bookmark.");
-        //Change color of bookmark icon to solid dark
+        console.log("bookmarked state pre set:", bookmarked);
+        setBookmarked(true);
+        console.log("bookmarked state, post set:", bookmarked);
       } else {
         console.log("Error", data);
         //should handle case where bookmark is already saved
@@ -87,7 +85,6 @@ function Headline (props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        
         <Button size="small" color="primary" href={props.url}>
           View Article
         </Button>
@@ -96,23 +93,35 @@ function Headline (props) {
             Share
           </MailOutlineIcon>
         </IconButton>
-        <IconButton onClick={bookmarkArticle}>
+        {bookmarked? 
+        [<IconButton onClick={removeBookmark}>
+          <BookmarkIcon size="small" color="primary">
+          </BookmarkIcon>
+        </IconButton>]
+        :
+        [<IconButton onClick={bookmarkArticle}>
           <BookmarkBorderIcon size="small" color="primary">
-            Save
           </BookmarkBorderIcon>
-        </IconButton>
+        </IconButton>]}
       </CardActions>
-    </Card>
-    <br/>
-
+    </Card><br/>
     </Grid>
   </div>
   )
 } 
 
-export default Headline
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 450,
+    margin: 10,
+  },
+  media: {
+    height: 250,
+  },
+});
 
-    
+
+export default Headline
 
 
 

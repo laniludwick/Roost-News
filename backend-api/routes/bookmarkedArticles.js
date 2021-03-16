@@ -3,30 +3,25 @@
 const express = require('express');
 const router = express.Router();
 const bookmarks = require('../models/bookmark.model.js');
+const session = require('express-session');
 
 router.get('/', function(req, res, next) {
   
-  //Authenticate existing user
-  const id = req.body.userId;
-
-  bookmarks.getBookmarksByUserId(id)
+  console.log("in bookmarked articles route");
+  const userId = session.user.userId;
+  console.log("session id in bookmarked articles route, userId:", userId);
+  bookmarks.getBookmarksByUserId(userId)
     .then(result => {
-      console.log("result row [0]['email']", result[0]['email']);
-      console.log("result row [0]['userPassword']", result[0]['userPassword']);
+      console.log("result of get bookmarks for user:", result);
+      console.log("result row [0]['title']", result[0]['title']);
       if (!result) {
-        res.status(400).json('{"error": "Incorrect email address or password"}');
+        res.status(400).json('{"error": "No bookmarks for user"}');
       } else {
-        if (result[0]['userPassword'] === userPassword) {
-          console.log("req.session.id", req.session.id);
-          // req.session.id = result.insertId 
-          res.json('{"success": result}');
-        } else {
-          res.status(400).json('{"error": "Incorrect email address or password"}');
-        }
+          res.json(result);
       }      
     })  
     .catch(err => {
-      console.log("Error receiving result of user log in from user model", err); 
+      console.log("Error receiving result of user log in from bookmark model", err); 
       res.status(500);
     });
   }); 
