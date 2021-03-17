@@ -5,8 +5,8 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-require('dotenv').config({path: __dirname + '/../../.env'})
-const apiKey = process.env.REACT_APP_NEWS_API_KEY
+require('dotenv').config({path: __dirname + '/../../.env'});
+const apiKey = process.env.NEWS_API_KEY;
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI(apiKey);
 

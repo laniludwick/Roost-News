@@ -4,9 +4,12 @@ const sql = require("./db.js");
 
 exports.create = (userId, author, title, articleDescription, url, urlToImage) => {
   console.log("In bookmark model create");
+  
   return new Promise((acc, rej) => {
     
-    const sqlCommand = "INSERT INTO bookmark (id, userId, author, title, articleDescription, articleURL, urlToImg) VALUES (null, '"+userId+"', '"+author+"', '"+title+"', '"+articleDescription+"', '"+url+"', '"+urlToImage+"')";
+    const sqlCommand = `INSERT INTO bookmark (id, userId, author, title, articleDescription, articleURL, \
+      urlToImg) VALUES (null, '${userId}', '${author}', '${title.replace(/'/g, "''")}', \
+      '${articleDescription.replace(/'/g, "''")}', '${url}', '${urlToImage}')`;
         
       sql.query(sqlCommand, function(err, result) {
       if (err) {

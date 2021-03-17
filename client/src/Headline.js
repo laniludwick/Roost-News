@@ -9,26 +9,33 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core'; 
 import { Grid, Button, makeStyles, IconButton } from '@material-ui/core';
+import { Dialog, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 import{ init } from 'emailjs-com';
 import emailjs from 'emailjs-com';
-require('dotenv').config({path: __dirname + '/../../.env'})
-const emailJSUserId = process.env.EMAILJS_USER_ID;
-const emailJSAccessToken = process.env.EMAILJS_ACCESS_TOKEN;
-const emailJSServiceId = process.env.EMAILJS_SERVICE_ID;
-const emailJSTemplateId = process.env.EMAILJS_TEMPLATE_ID;
+// const path = require('path');
+// require('dotenv').config({path: __dirname + '/../../.env'});
+const emailJSUserId = process.env.REACT_APP_EMAILJS_USER_ID;
+const emailJSAccessToken = process.env.REACT_APP_EMAILJS_ACCESS_TOKEN;
+const emailJSServiceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+const emailJSTemplateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+
 init(emailJSUserId);
 
 function Headline (props) {
   
   const [bookmarked, setBookmarked] = React.useState(false);
   const [recipientFname, setRecipientFname] = React.useState("");
-  const [recipientEmail, setRecipientLEmail] = React.useState("");
+  const [recipientEmail, setRecipientEmail] = React.useState("");
   const [userName, setUserName] = React.useState("");
-  
+  const [openDialog, setOpenDialog] = React.useState(false);
+
+  console.log("process env", process.env);
+  console.log("userId, service id, template id", emailJSUserId, emailJSServiceId, emailJSTemplateId);
 
   const emailArticle = (evt) => {
     evt.preventDefault();
     console.log("Inside emailArticle function")
+    setOpenDialog(false);
     
     const templateParams = {
       recipientFname: recipientFname,
@@ -37,12 +44,16 @@ function Headline (props) {
       articleURL: props.url
   };
 
-  emailjs.send(emailJSServiceId, emailJSTemplateId, templateParams)
-      .then(function(response) {
-        console.log('SUCCESS!', response.status, response.text);
-      }, function(error) {
-        console.log('FAILED...', error);
-      });
+    emailjs.send(emailJSServiceId, emailJSTemplateId, templateParams)
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+        }, function(error) {
+          console.log('FAILED...', error);
+        });
+  }
+
+  const handleClose = () => {
+    setOpenDialog(false);
   }
 
   const removeBookmark = () => {
@@ -93,7 +104,6 @@ function Headline (props) {
   return (
   <div>
     <Grid item >
-      
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -114,13 +124,25 @@ function Headline (props) {
         <Button size="small" color="primary" href={props.url}>
           View Article
         </Button>
-        <Form onClick={emailArticle}>
-        <IconButton>
+        <IconButton onClick={()=>setOpenDialog(true)}>
           <MailOutlineIcon size="small" color="primary">
             Share
           </MailOutlineIcon>
         </IconButton>
-        </Form>
+        <Dialog open={openDialog}>
+          <DialogTitle>Email this article</DialogTitle>  
+          <DialogContent>
+            <form action="/" onSubmit={emailArticle}>
+              <TextField name="sender-name" value={userName} label="Your full name" fullWidth onChange={evt => setUserName(evt.target.value)} required={true}/>
+              <TextField name="recipient-fname" value={recipientFname} label="Recipient's first name" fullWidth onChange={evt => setRecipientFname(evt.target.value)} required={true}/>
+              <TextField name="recipient-email" value={recipientEmail} label="Recipient's email address" fullWidth onChange={evt => setRecipientEmail(evt.target.value)} required={true} type="email"/>
+              <div><br/>
+                <Button color="primary" variant="contained" type="submit" label="Submit">Send</Button>
+                <Button color="secondary" variant="outlined" label="Cancel" onClick={handleClose}>Cancel</Button>
+              </div>
+            </form> 
+          </DialogContent>
+        </Dialog>       
         {bookmarked? 
         [<IconButton onClick={removeBookmark}>
           <BookmarkIcon size="small" color="primary">

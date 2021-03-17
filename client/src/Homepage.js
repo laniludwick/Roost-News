@@ -11,7 +11,7 @@ function Homepage () {
   const [headlineList, setHeadlineList] = React.useState([]);
   
   React.useEffect(() => {
-    fetch ('http://localhost:9000/newsAPI')
+    fetch ('/newsAPI')
     .then(response => response.json())
     
     .then(headlines => {

@@ -24,7 +24,7 @@ function Login(props) {
     console.log("login data", loginData);
 
     // fetch ('/api/login', {)
-    fetch ("http://localhost:9000/login", {
+    fetch ("/login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
