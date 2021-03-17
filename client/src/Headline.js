@@ -9,14 +9,40 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core'; 
 import { Grid, Button, makeStyles, IconButton } from '@material-ui/core';
-
+import{ init } from 'emailjs-com';
+import emailjs from 'emailjs-com';
+require('dotenv').config({path: __dirname + '/../../.env'})
+const emailJSUserId = process.env.EMAILJS_USER_ID;
+const emailJSAccessToken = process.env.EMAILJS_ACCESS_TOKEN;
+const emailJSServiceId = process.env.EMAILJS_SERVICE_ID;
+const emailJSTemplateId = process.env.EMAILJS_TEMPLATE_ID;
+init(emailJSUserId);
 
 function Headline (props) {
   
   const [bookmarked, setBookmarked] = React.useState(false);
+  const [recipientFname, setRecipientFname] = React.useState("");
+  const [recipientEmail, setRecipientLEmail] = React.useState("");
+  const [userName, setUserName] = React.useState("");
+  
 
-  const emailArticle = () => {
+  const emailArticle = (evt) => {
+    evt.preventDefault();
     console.log("Inside emailArticle function")
+    
+    const templateParams = {
+      recipientFname: recipientFname,
+      recipientEmail: recipientEmail,
+      userName: userName,
+      articleURL: props.url
+  };
+
+  emailjs.send(emailJSServiceId, emailJSTemplateId, templateParams)
+      .then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+      }, function(error) {
+        console.log('FAILED...', error);
+      });
   }
 
   const removeBookmark = () => {
@@ -88,11 +114,13 @@ function Headline (props) {
         <Button size="small" color="primary" href={props.url}>
           View Article
         </Button>
-        <IconButton onClick={emailArticle}>
+        <Form onClick={emailArticle}>
+        <IconButton>
           <MailOutlineIcon size="small" color="primary">
             Share
           </MailOutlineIcon>
         </IconButton>
+        </Form>
         {bookmarked? 
         [<IconButton onClick={removeBookmark}>
           <BookmarkIcon size="small" color="primary">
