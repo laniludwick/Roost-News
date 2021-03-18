@@ -1,21 +1,17 @@
 // ***** Homepage component for Roost News used on landing page *****
 
-import { Link } from 'react-router-dom';
-
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core'; 
-import { Grid, Button, makeStyles, IconButton } from '@material-ui/core';
+import { Grid, Button, Link, makeStyles, IconButton } from '@material-ui/core';
 import { Dialog, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 import{ init } from 'emailjs-com';
 import emailjs from 'emailjs-com';
-// const path = require('path');
-// require('dotenv').config({path: __dirname + '/../../.env'});
+
 const emailJSUserId = process.env.REACT_APP_EMAILJS_USER_ID;
-const emailJSAccessToken = process.env.REACT_APP_EMAILJS_ACCESS_TOKEN;
 const emailJSServiceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
 const emailJSTemplateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
 
@@ -28,9 +24,6 @@ function Headline (props) {
   const [recipientEmail, setRecipientEmail] = React.useState("");
   const [userName, setUserName] = React.useState("");
   const [openDialog, setOpenDialog] = React.useState(false);
-
-  console.log("process env", process.env);
-  console.log("userId, service id, template id", emailJSUserId, emailJSServiceId, emailJSTemplateId);
 
   const emailArticle = (evt) => {
     evt.preventDefault();
@@ -57,8 +50,12 @@ function Headline (props) {
   }
 
   const removeBookmark = () => {
-    console.log("Inside removeBookmark function")
+    console.log("Inside removeBookmark function");
     setBookmarked(false);
+  }
+
+  const bookmarkAlert = () => {
+    alert("Please log in to bookmark articles");
   }
 
   const bookmarkArticle = () => {
@@ -76,7 +73,7 @@ function Headline (props) {
     console.log("bookmark data", bookmarkData);
 
     // fetch ('/api/bookmark'
-    fetch ("http://localhost:9000/bookmark", {
+    fetch ("/bookmark", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -105,6 +102,7 @@ function Headline (props) {
   <div>
     <Grid item >
     <Card className={classes.root}>
+    <Link href={props.url}> 
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -120,14 +118,13 @@ function Headline (props) {
           </Typography>
         </CardContent>
       </CardActionArea>
+      </Link>
       <CardActions>
         <Button size="small" color="primary" href={props.url}>
           View Article
         </Button>
         <IconButton onClick={()=>setOpenDialog(true)}>
-          <MailOutlineIcon size="small" color="primary">
-            Share
-          </MailOutlineIcon>
+          <MailOutlineIcon size="small" color="primary"/>
         </IconButton>
         <Dialog open={openDialog}>
           <DialogTitle>Email this article</DialogTitle>  
@@ -137,22 +134,26 @@ function Headline (props) {
               <TextField name="recipient-fname" value={recipientFname} label="Recipient's first name" fullWidth onChange={evt => setRecipientFname(evt.target.value)} required={true}/>
               <TextField name="recipient-email" value={recipientEmail} label="Recipient's email address" fullWidth onChange={evt => setRecipientEmail(evt.target.value)} required={true} type="email"/>
               <div><br/>
-                <Button color="primary" variant="contained" type="submit" label="Submit">Send</Button>
-                <Button color="secondary" variant="outlined" label="Cancel" onClick={handleClose}>Cancel</Button>
+                <Button className={classes.sendEmail} variant="contained" type="submit" label="Submit">Send</Button>
+                <Button className={classes.cancelEmail} variant="outlined" label="Cancel" onClick={handleClose}>Cancel</Button>
               </div>
-            </form> 
+            </form><br/> 
           </DialogContent>
         </Dialog>       
-        {bookmarked? 
-        [<IconButton onClick={removeBookmark}>
-          <BookmarkIcon size="small" color="primary">
-          </BookmarkIcon>
-        </IconButton>]
-        :
-        [<IconButton onClick={bookmarkArticle}>
-          <BookmarkBorderIcon size="small" color="primary">
-          </BookmarkBorderIcon>
-        </IconButton>]}
+        { props.loggedInState? 
+            bookmarked ?  
+              [<IconButton key={1} onClick={removeBookmark}>
+                <BookmarkIcon size="small" color="primary"/>
+              </IconButton>] 
+              :
+              [<IconButton key={1} onClick={bookmarkArticle}>
+                <BookmarkBorderIcon size="small" color="primary"/>
+              </IconButton>]
+            : 
+            [<IconButton key={1} onClick={bookmarkAlert}>
+              <BookmarkBorderIcon size="small" className={classes.loggedOutBookmark}/>
+            </IconButton>]
+        }
       </CardActions>
     </Card><br/>
     </Grid>
@@ -168,32 +169,27 @@ const useStyles = makeStyles({
   media: {
     height: 250,
   },
+  sendEmail: {
+    background: 'linear-gradient(45deg, #336600 30%, #59b300 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    height: 40,
+    color: 'white',
+    padding: '0 20px',
+  },
+  cancelEmail: {
+    background: 'white',
+    border: '1px',
+    borderRadius: 3,
+    height: 40,
+    padding: '0 20px',
+  },
+  loggedOutBookmark: {
+    color: 'gray'
+  }
+
 });
 
 
 export default Headline
-
-
-
-
-// Bootstrap
-// <i class="bi bi-bookmark"></i>
-
-{/* <i class="far fa-bookmark"></i> f02e regular
-<i class="fas fa-bookmark"></i> f02e solid
-f0e0<i class="far fa-envelope"></i>
-<i class="fas fa-envelope"></i>
-<i class="far fa-newspaper"></i>f1ea */}
-{/* <i class="fa fa-camera-retro fa-2x"></i> fa-2x */}
-
-{/* <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-newspaper" viewBox="0 0 16 16">
-<path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"/>
-<path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
-</svg></button>
-        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-</svg></button>
-
-<button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
-</svg></button> */}

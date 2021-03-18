@@ -5,7 +5,7 @@ import Headline from './Headline';
 import { CardColumns } from 'react-bootstrap';
 import { Grid } from '@material-ui/core';
 
-function Homepage () {
+function Homepage (props) {
 
   const [headlineData, setHeadlineData] = React.useState("");
   const [headlineList, setHeadlineList] = React.useState([]);
@@ -37,6 +37,7 @@ function Homepage () {
         description={value.description}
         url={value.url}
         urlToImage={value.urlToImage}
+        loggedInState={props.loggedInState}
         // date={value.publishedAt}
         // content={value.content}
         />

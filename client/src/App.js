@@ -16,9 +16,9 @@ function App() {
   const [loggedInState, setLoggedInState] = React.useState(false); 
 
   return (
-    <div className="classes.root">
+    <div>
       <Router>
-        <AppBar position="sticky" color="white">
+        <AppBar position="sticky" color="inherit">
           {/* <Container> */}
             <Toolbar>
                   <div style={classes.logoCenter}>
@@ -28,11 +28,11 @@ function App() {
                   </div>
                   <div style={classes.navLinks}>
                     {loggedInState !== true? 
-                    [<Button color="inherit" href="/signup">Sign Up</Button>,
-                    <Button color="inherit" href="/login">Login</Button>]
+                    [<Button key={1} color="inherit" href="/signup">Sign Up</Button>,
+                    <Button key={2} color="inherit" href="/login">Login</Button>]
                     :
-                    [<Button color="inherit" href="/bookmarked-articles">My bookmarks</Button>,
-                    <Button color="inherit" href="/logout">Logout</Button>]}
+                    [<Button key={1} color="inherit" href="/bookmarked-articles">My bookmarks</Button>,
+                    <Button key={2} color="inherit" href="/logout">Logout</Button>]}
                   </div>
             </Toolbar>
           {/* </Container> */}
@@ -69,7 +69,7 @@ var classes = {
   logo: {
     margin: "auto",
     textAlign: "center",
-    maxWidth: "50%",
+    maxWidth: "55%",
     maxHeight: "70%"
   },
   logoCenter: {

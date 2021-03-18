@@ -24,9 +24,9 @@ router.post('/', function(req, res, next) {
   let urlToImage = req.body.urlToImage;
   // let date = req.body.date;
   let content = req.body.content;
-  const userId = 2;
-  console.log("author, title, descr, url", author, title, articleDescription, url);
-  console.log("title, desc:", title, articleDescription);
+  console.log("req session user.userid in bookmark route", req.session.user.userId);
+  const userId = req.session.user.userId;
+  console.log("author, title, descr, url:", author, title, articleDescription, url);
   
   // if (typeof(date) === 'undefined') {
   //   console.log("date:", date);
@@ -44,7 +44,6 @@ router.post('/', function(req, res, next) {
     }
     console.log("result_array", result_array);
     console.log("result id", result.insertId);
-    console.log("req session user.userid in bookmark route", req.session.user.userId);
     res.json(result_array);
   })    
   .catch(err => {
