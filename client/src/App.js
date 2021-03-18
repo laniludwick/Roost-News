@@ -14,25 +14,26 @@ import { Box, Container, AppBar, Toolbar, Link, Typography, Button, makeStyles, 
 function App() {
   
   const [loggedInState, setLoggedInState] = React.useState(false); 
-  const classes = useStyles();
 
   return (
     <div className="classes.root">
       <Router>
-        <AppBar position="static" color="transparent">
+        <AppBar position="sticky" color="white">
           {/* <Container> */}
             <Toolbar>
-                  <Typography variant="h6" className={classes.title}>
+                  <div style={classes.logoCenter}>
                     <Link href="/" color="inherit">
-                      <img src={RoostNewsLogo} width="270px" height="40px" className="center"/>
+                      <img src={RoostNewsLogo} width="270px" height="40px" classes={classes.logo} alt="roost-news-logo"/>
                     </Link>
-                  </Typography>
-                  {loggedInState !== true? 
-                  [<Button color="inherit" href="/signup">Sign Up</Button>,
-                  <Button color="inherit" href="/login">Login</Button>]
-                  :
-                  [<Button color="inherit" href="/bookmarked-articles">My bookmarks</Button>,
-                  <Button color="inherit" href="/logout">Logout</Button>]}
+                  </div>
+                  <div style={classes.navLinks}>
+                    {loggedInState !== true? 
+                    [<Button color="inherit" href="/signup">Sign Up</Button>,
+                    <Button color="inherit" href="/login">Login</Button>]
+                    :
+                    [<Button color="inherit" href="/bookmarked-articles">My bookmarks</Button>,
+                    <Button color="inherit" href="/logout">Logout</Button>]}
+                  </div>
             </Toolbar>
           {/* </Container> */}
         </AppBar>
@@ -64,20 +65,23 @@ function App() {
   )
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
+var classes = {
+  logo: {
+    margin: "auto",
+    textAlign: "center",
+    maxWidth: "50%",
+    maxHeight: "70%"
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  logoCenter: {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)"
   },
-  title: {
-    flexGrow: 1,
-  },
-  // style:{ 
-  // width: '100%',
-  // }
-}));
+  navLinks: {
+    marginLeft: "auto",
+  }
+};
 
 
 export default App;
