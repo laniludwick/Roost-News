@@ -6,10 +6,9 @@ import Homepage from './Homepage';
 import SignUpUser from './Signup';
 import Login from './Login';
 import RoostNewsLogo from './RoostNewsLogo.png';
-import ArticleDetails from './ArticleDetails';
 import BookmarkedArticles from './BookmarkedArticles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Box, Container, AppBar, Toolbar, Link, Typography, Button, makeStyles, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Link, Button } from '@material-ui/core';
 
 function App() {
   
@@ -19,7 +18,6 @@ function App() {
     <div>
       <Router>
         <AppBar position="sticky" color="inherit">
-          {/* <Container> */}
             <Toolbar>
                   <div style={classes.logoCenter}>
                     <Link href="/" color="inherit">
@@ -35,15 +33,11 @@ function App() {
                     <Button key={2} color="inherit" href="/logout">Logout</Button>]}
                   </div>
             </Toolbar>
-          {/* </Container> */}
         </AppBar>
         <Switch>
           <Route path="/bookmarked-articles">
             <BookmarkedArticles loggedInState={loggedInState}/>
           </Route>
-          {/* <Route path = "/article-details">
-            <ArticleDetails loggedInState={loggedInState}/>
-          </Route>  */}
           <Route path="/logout">
             <Login setLoggedInState={setLoggedInState}/>
           </Route>

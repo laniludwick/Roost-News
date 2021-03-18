@@ -30,12 +30,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use('/', indexRouter);
-app.use('/signup', signupRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
-app.use('/newsAPI', newsAPIRouter);
-app.use('/bookmark', bookmarkRouter);
-app.use('/bookmarked-articles', bookmarkedArticlesRouter);
+app.use('/api/signup', signupRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/logout', logoutRouter);
+app.use('/api/newsAPI', newsAPIRouter);
+app.use('/api/bookmark', bookmarkRouter);
+app.use('/api/bookmarked-articles', bookmarkedArticlesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

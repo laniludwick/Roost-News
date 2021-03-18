@@ -72,8 +72,7 @@ function Headline (props) {
 
     console.log("bookmark data", bookmarkData);
 
-    // fetch ('/api/bookmark'
-    fetch ("/bookmark", {
+    fetch ("/api/bookmark", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

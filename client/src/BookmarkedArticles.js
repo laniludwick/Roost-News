@@ -11,7 +11,7 @@ function BookmarkedArticles (props) {
   const [bookmarkList, setBookmarkList] = React.useState([]);
 
   React.useEffect(() => {
-    fetch('http://localhost:9000/bookmarked-articles')
+    fetch('/api/bookmarked-articles')
     .then(response => response.json())
     .then(data => {
 
@@ -19,7 +19,7 @@ function BookmarkedArticles (props) {
     }) 
   }, []); 
 
-  //Bookmarked cards  
+  //Bookmarked articles  
   React.useEffect(()=> {
     if (bookmarkData !== "") {
     const bookmarkComponents = [];
@@ -35,8 +35,6 @@ function BookmarkedArticles (props) {
       description={value.articleDescription}
       url={value.articleURL}
       urlToImage={value.urlToImg}
-      // date={value.publishedAt}
-      // content={value.content}
       />
       bookmarkComponents.push(bookmarkComponent);
       console.log("bookmarkComponents list in loop:", bookmarkComponents);

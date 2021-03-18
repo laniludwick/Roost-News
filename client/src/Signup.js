@@ -60,8 +60,7 @@ function SignUpUser(props) {
     console.log("Sign up data", signUpData)
     //localStorage.setItem("email", signUpInputs.email);
 
-    // fetch ('/api/signup', {)
-      fetch ("http://localhost:9000/signup", {
+      fetch ("/api/signup", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

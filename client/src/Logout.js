@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 function Logout(props) {
 
   const history = useHistory();
-  fetch ("http://localhost:9000/logout", {
+  fetch ("/api/logout", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
