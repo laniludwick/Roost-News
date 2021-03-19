@@ -1,4 +1,4 @@
-# <img src="/readme/roostnewslogo.png" width="50%" alt="Roost News">
+# <img src="/readme/RoostNewsLogo.png" width="80%" alt="Roost News">
 Roost News was a project I built after graduating from Hackbright's full-stack software engineering program. I was inspired to create this project to allow users to view, save, and share customized news content all in one place. I was curious and excited to learn new tools and frameworks, so I intentionally used a stack that I was less familiar with. 
 
 I wrote this single page app's frontend using Javascript, React and Material UI, and the backend using Javascript, Express and a MySQL database without an ORM. (A prior project I built used Javascript, React and Bootstrap on the frontend, and Python, Flask, PostgreSQL and SQLAlchemy ORM on the backend.) Roost News also includes an integration with NewsAPI and EmailJS.
@@ -33,13 +33,13 @@ Lani graduated from Stanford University with a B.S. in Industrial Engineering an
 #### Landing Page
 Users are brought to a webpage built in React. News articles from various news sources feed in from the NewsAPI. 
 
-# <img src="/readme/roostnewslanding.png" width="80%" alt="Roost News Homepage">
+# <img src="/readme/roostnewslanding.png" width="100%" alt="Roost News Homepage">
 
 #### Email news articles
 When logged into the user's account, the user can share news articles with recipients via email. EmailJS is the tool I used to create the templated email containing the article URL. The current incarnation of this feature is that the Roost News email account in Gmail sends the templated email. I purposefully avoided linking to the user's computer's default email client since the client is often unused. 
 
-# <img src="/readme/roostnewssharearticle.png" width="80%" alt="Roost News Share Article">
-# <img src="/readme/roostnewsemailedarticle.png" width="80%" alt="Roost News Emailed Article">
+# <img src="/readme/roostnewssharearticle.png" width="100%" alt="Roost News Share Article">
+# <img src="/readme/roostnewsemailedarticle.png" width="100%" alt="Roost News Emailed Article">
 
 
 #### Bookmarking news articles
@@ -48,8 +48,8 @@ The user can bookmark articles to their account and find them in the "My bookmar
 #### Signup/Login functionality
 The user can sign up for a Roost News account and log in if they'd like to use the bookmarking feature.
 
-# <img src="/readme/roostnewssignup.png" width="80%" alt="Roost News Sign Up">
-# <img src="/readme/roostnewslogin.png" width="80%" alt="Roost News Login">
+# <img src="/readme/roostnewssignup.png" width="100%" alt="Roost News Sign Up">
+# <img src="/readme/roostnewslogin.png" width="100%" alt="Roost News Login">
 
 
 ## <a name="future"></a>The Future of Roost News
