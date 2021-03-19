@@ -18,12 +18,19 @@ const emailJSTemplateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
 init(emailJSUserId);
 
 function Headline (props) {
-  
-  const [bookmarked, setBookmarked] = React.useState(false);
+
+  let bookmarkState = false;
+  if (typeof props.bookmarked !== 'undefined') {
+    bookmarkState = props.bookmarked;
+  }
+  console.log("bookmarkState", bookmarkState);
+  const [bookmarked, setBookmarked] = React.useState(bookmarkState);
   const [recipientFname, setRecipientFname] = React.useState("");
   const [recipientEmail, setRecipientEmail] = React.useState("");
   const [userName, setUserName] = React.useState("");
   const [openDialog, setOpenDialog] = React.useState(false);
+  console.log("Logged in state in headline:", props.loggedInState);
+  console.log("Bookmarked in headline", bookmarked);
 
   const emailArticle = (evt) => {
     evt.preventDefault();

@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 
 function BookmarkedArticles (props) {
   // const {articleId} = useParams();
-  
+  props.setLoggedInState(true);
   const [bookmarkData, setBookmarkData] = React.useState("");
   const [bookmarkList, setBookmarkList] = React.useState([]);
 
@@ -35,6 +35,7 @@ function BookmarkedArticles (props) {
       description={value.articleDescription}
       url={value.articleURL}
       urlToImage={value.urlToImg}
+      bookmarked={true}
       />
       bookmarkComponents.push(bookmarkComponent);
       console.log("bookmarkComponents list in loop:", bookmarkComponents);

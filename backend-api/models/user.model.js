@@ -2,7 +2,7 @@
 //Access connection to db
 const sql = require("./db.js");
 
-exports.create = (fname, lname, email, userPassword, active) => {
+exports.create = (fname, lname, email, userPassword) => {
   console.log("In create user in model");
   return new Promise((acc, rej) => {
   

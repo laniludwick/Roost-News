@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Headline from './Headline';
-import { CardColumns } from 'react-bootstrap';
 import { Grid } from '@material-ui/core';
 
 function Homepage (props) {
@@ -38,8 +37,6 @@ function Homepage (props) {
         url={value.url}
         urlToImage={value.urlToImage}
         loggedInState={props.loggedInState}
-        // date={value.publishedAt}
-        // content={value.content}
         />
         headlineComponents.push(headlineComponent);
         console.log("headlineComponents list in loop:", headlineComponents);

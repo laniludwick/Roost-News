@@ -13,6 +13,7 @@ import { AppBar, Toolbar, Link, Button } from '@material-ui/core';
 function App() {
   
   const [loggedInState, setLoggedInState] = React.useState(false); 
+  console.log("Logged in state app:", loggedInState);
 
   return (
     <div>
@@ -36,7 +37,7 @@ function App() {
         </AppBar>
         <Switch>
           <Route path="/bookmarked-articles">
-            <BookmarkedArticles loggedInState={loggedInState}/>
+            <BookmarkedArticles setLoggedInState={setLoggedInState}/>
           </Route>
           <Route path="/logout">
             <Login setLoggedInState={setLoggedInState}/>

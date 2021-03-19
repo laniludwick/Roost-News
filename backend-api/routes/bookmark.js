@@ -22,8 +22,6 @@ router.post('/', function(req, res, next) {
   let articleDescription = req.body.description;
   let url = req.body.url;
   let urlToImage = req.body.urlToImage;
-  // let date = req.body.date;
-  let content = req.body.content;
   console.log("req session user.userid in bookmark route", req.session.user.userId);
   const userId = req.session.user.userId;
   console.log("author, title, descr, url:", author, title, articleDescription, url);
